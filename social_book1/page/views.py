@@ -1,53 +1,40 @@
-# Create your views here.
-# views.py
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as auth_login
+from .forms import CustomUserCreationForm
 from django.http import HttpResponse
-from django.contrib.auth.models import User
 
-# Create your views here.
 
-def home(request):
-    return render(request, 'home.html')
-
-def registeruser(request):
-    form = UserCreationForm()
-
+def login(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect('home')
-        else:
-            return HttpResponse('Error Occured')
-
-    context = {'form': form}
-    return render(request, 'register.html', context)
-
-def loginuser(request):
-
-    page = 'login'
-
-    if request.user.is_authenticated:
-        return redirect('home')
-    if request.method == 'POST':
-        name = request.POST.get('username').lower()
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=name, password=password)
 
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            return HttpResponse('Invalid username or password')
+        if username and password:
+            user = authenticate(request, username=username, password=password)
 
-    context = {'page': page}
-    return render(request, 'login.html', context)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('index')
 
-def logoutuser(request):
-    logout(request)
-    return redirect('home')
+        return HttpResponse('Invalid username or password')
+
+    return render(request, 'login.html')
+
+
+def logout(request):
+    return render(request, 'logout.html')
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, 'register.html', {'form': form})
+
+
+def index(request):
+    return render(request, 'index.html')
