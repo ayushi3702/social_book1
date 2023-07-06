@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static%}
 <html>
 <head>
 	<!-- Basic Page Info -->
@@ -296,6 +297,16 @@
 					<li>
 						<a href="calendar.html" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'upload_book' %}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-calendar1"></span><span class="mtext">Upload Books</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'uploaded_files' %}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-calendar1"></span><span class="mtext">Uploaded Files</span>
 						</a>
 					</li>
 					<li class="dropdown">

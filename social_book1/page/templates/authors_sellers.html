@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Authors and Sellers</h1>
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Apply</button>
+  </form>
+  
+  <ul>
+    {% for user in filter.qs %}
+      <li>{{ user.username }}</li>
+    {% empty %}
+      <li>No authors or sellers found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
