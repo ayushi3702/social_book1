@@ -37,7 +37,6 @@ class CustomUser(AbstractUser):
         ('M', 'Male'),
         ('F', 'Female')
     )
-
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     fullname = models.CharField(max_length=255)
     public_visibility = models.BooleanField(default=False)
@@ -57,10 +56,12 @@ class CustomUser(AbstractUser):
 class UploadedFile(models.Model):
     title = models.CharField(max_length=100, null=True)
     description = models.TextField(default='N/A')
-    visibility = models.CharField(max_length=100, null=True)
-    cost = models.DecimalField(max_digits=8, decimal_places=2, default=300)
+    public_visibility = models.CharField(max_length=100, null=True)
+    cost = models.PositiveIntegerField()
     year_published = models.IntegerField(default=datetime.now().year)
     file = models.FileField(upload_to='uploads/', null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True, null=True)
+    username = models.CharField(max_length=255, null=True)
 
 page_image = models.FileField(upload_to="page/", max_length=250, null=True, default=None)
 

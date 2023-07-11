@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, UploadedFile
 
-# class CustomUser(admin.ModelAdmin):
-#     list_display=('page image')
+class CustomUserAdmin(UserAdmin):
+    list_display = ['username', 'email', 'password', 'gender', 'fullname', 'public_visibility']
 
-admin.site.register(CustomUser, UserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(UploadedFile)

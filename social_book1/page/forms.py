@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 class CustomUserCreationForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password', 'gender', 'fullname')
+        fields = ('username', 'email', 'password', 'gender', 'fullname', 'public_visibility')
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -19,4 +19,4 @@ class CustomUserCreationForm(forms.ModelForm):
 class UploadedFile(forms.ModelForm):
     class Meta:
         model = UploadedFile
-        fields = ('title', 'description', 'visibility', 'cost', 'year_published')
+        fields = ('title', 'description', 'public_visibility', 'cost', 'year_published', 'file', 'username')
