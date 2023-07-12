@@ -98,9 +98,9 @@
 												<input type="text" class="form-control" name = "fullname">
 											</div>
 										</div>
-										<div class="form-group row align-items-center">
-											<label for="id_gender">Gender:</label>
-											<select id="id_gender" name="gender" required>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label" for="id_gender">Gender:</label>
+											<select id="id_gender" style="margin-left: 14px; width: 60%;" name="gender" required>
 												<option value="M">Male</option>
 												<option value="F">Female</option>
 											</select>
@@ -112,10 +112,16 @@
 												<input type="number" class="form-control" name = "Age">
 											</div>
 										</div>
-										<div class="form-group row align-items-center">
-											<input type="checkbox" name="public_visibility" value="public_visibility">
-											<label for="form-control"> Visibility </label><br>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label" for="form-control"> Visibility </label><br>
+											<input class="form-control" style="margin-left: 13px; width: 25px; min-height: 1.5rem" type="checkbox" name="public_visibility" value="public_visibility">
 										</div>
+									</div>
+								</section>
+								<!-- Step 3 -->
+								<h5>Residential Info</h5>
+								<section>
+									<div class="form-wrap max-width-600 mx-auto">
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">City</label>
 											<div class="col-sm-8">
@@ -128,76 +134,13 @@
 												<input type="text" class="form-control">
 											</div>
 										</div>
-									</div>
-								</section>
-								<!-- Step 3 -->
-								<h5>Payment Method & Info</h5>
-								<section>
-									<div class="form-wrap max-width-600 mx-auto">
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Credit Card Type</label>
-											<div class="col-sm-8">
-												<select class="form-control selectpicker" title="Select Card Type">
-													<option value="1">Option 1</option>
-													<option value="2">Option 2</option>
-													<option value="3">Option 3</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group row align-items-center">
-											<label class="col-sm-4 col-form-label">Credit Card Number</label>
-											<div class="col-sm-8">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">CVC</label>
-											<div class="col-sm-3">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Expiration Date</label>
-											<div class="col-sm-8">
-												<div class="row">
-													<div class="col-6">
-														<select class="form-control selectpicker" title="Month" data-size="5">
-															<option value='01'>January</option>
-															<option value='02'>February</option>
-															<option value='03'>March</option>
-															<option value='04'>April</option>
-															<option value='05'>May</option>
-															<option value='06'>June</option>
-															<option value='07'>July</option>
-															<option value='08'>August</option>
-															<option value='09'>September</option>
-															<option value='10'>October</option>
-															<option value='11'>November</option>
-															<option value='12'>December</option>
-														</select>
-													</div>
-													<div class="col-6">
-														<select class="form-control selectpicker" title="Year" data-size="5">
-															<option>2020</option>
-															<option>2019</option>
-															<option>2018</option>
-															<option>2017</option>
-															<option>2016</option>
-															<option>2015</option>
-															<option>2014</option>
-															<option>2013</option>
-															<option>2012</option>
-															<option>2011</option>
-															<option>2010</option>
-															<option>2009</option>
-														</select>
-													</div>
-												</div>
-											</div>
+										<div class="custom-control custom-checkbox mt-4">
+											<label class="custom-control-label" for="customCheck1">I have read and agreed to the terms of services and privacy policy</label>
+											<button type="submit" id="success-modal-btn" hidden data-toggle="modal" data-target="#success-modal" data-backdrop="static">Launch modal</button>
 										</div>
 									</div>
 								</section>
-								<!-- Step 4 -->
+								{% comment %} <!-- Step 4 -->
 								<h5>Overview Information</h5>
 								<section>
 									<div class="form-wrap max-width-600 mx-auto">
@@ -250,7 +193,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> {% endcomment %}
 										</div>
 									</div>
 								</section>

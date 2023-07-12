@@ -116,6 +116,11 @@
 							<span class="micon dw dw-calendar1"></span><span class="mtext">My Books</span>
 						</a>
 					</li>
+          <li>
+						<a href="{% url 'login' %}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-calendar1"></span><span class="mtext">Logout</span>
+						</a>
+					</li>
 					{% comment %} <li>
 						<a href="{% url 'RequestBooks' %}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-calendar1"></span><span class="mtext">Request Books</span>
@@ -126,29 +131,40 @@
 		</div>
 	</div>
 
-  <table style="margin-left: 18%">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Cost</th>
-        <th>Year Published</th>
-        <th>Username</th>
-        <th>Download</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for file in files %}
-      <tr>
-        <td>{{ file.title }}</td>
-        <td>{{ file.description }}</td>
-        <td>{{ file.cost }}</td>
-        <td>{{ file.year_published }}</td>
-        <td>{{file.username}}</td>
-        <td><a href="{{file.file.url}}" download>Download File</a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+	<div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-6 col-lg-7">
+					<img src="/static/vendors/images/register-page-img.png" alt="">
+				</div>
+				<div class="col-md-6 col-lg-5">
+					<table style="margin-left: 18%">
+						<thead>
+						<tr>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Cost</th>
+							<th>Year Published</th>
+							<th>Username</th>
+							<th>Download</th>
+						</tr>
+						</thead>
+						<tbody>
+							{% for file in files %}
+						<tr>
+							<td>{{ file.title }}</td>
+							<td>{{ file.description }}</td>
+							<td>{{ file.cost }}</td>
+							<td>{{ file.year_published }}</td>
+							<td>{{file.username}}</td>
+							<td><a href="{{file.file.url}}" download>Download File</a></td>
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

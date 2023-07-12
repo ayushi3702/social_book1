@@ -2,7 +2,7 @@ from django.urls import include, path
 from . import views
 # from .views import AuthorsSellersView
 from page.views import upload_book, uploaded_files, authors_sellers
-from .views import send_email
+from .views import send_email, forgotpassword
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -17,4 +17,7 @@ urlpatterns = [
     path('my_books_wrapper', views.my_books_wrapper, name="my_books_wrapper"),
     path('verify/', views.verify, name='verify'),
     path('activate/<str:activation>/', views.activate, name='activate'),
+    # path('login/forgot_password/', views.forgotpassword, name='forgot_password')
+    path('login/forgot_password/', views.forgotpassword, name="forgot_password"),
+    path('reset_password/<str:reset_key>', views.resetpassword, name="reset_password"),
 ]

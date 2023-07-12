@@ -1,6 +1,6 @@
 from math import floor
 import random
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .forms import CustomUserCreationForm
 from django.http import HttpResponse
@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from page.wrapper import my_books_wrapper
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import string
@@ -67,6 +68,7 @@ def register(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         fullname = request.POST.get("fullname")
+        global global_key, name
         print(fullname)
         email = request.POST.get("email")
         print(email)
@@ -80,7 +82,6 @@ def register(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            global global_key, name
             activation_key = generate_activation_key()
             print(activation_key)
             global_key = activation_key
@@ -269,9 +270,9 @@ def verify(request):
     return render(request, 'verify.html')
 
 def activate(request, activation):
-    print(request.session.get('key'))
     global global_key, name
     key = global_key
+    print(request.session.get('key'))
     print("key got from session: ", key)
     print("Activation Key got from user:", activation)
     username = name
@@ -298,3 +299,61 @@ def send_otp(request, user):
     send_mail(subject, message, from_email, [to_email])
     print(subject, message, from_email, [to_email])
     return otp_token
+
+def forgotpassword(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        print(email)
+        global global_email, global_key
+        global_email = email
+        reset_key = generate_activation_key()
+        global_key = reset_key
+        link = f"http://localhost:8000/reset_password/{reset_key}"
+        from_email = settings.EMAIL_HOST_USER
+        send_mail("Forget link", link, from_email, [email])
+        print("Forget link", link, from_email, [email])
+        return redirect("login")
+    return render(request, "forgot_password.html")
+
+def resetpassword(request, reset_key):
+    global global_email, global_key
+    # print(global_email, global_key)
+    print('1')
+    if request.method == 'POST':
+        print('2')
+        p1 = request.POST.get('passwordone')
+        p2 = request.POST.get('passwordtwo')
+        if str(p1) == str(p2):
+            user = CustomUser.objects.get(email=global_email)
+            print(user)
+            user.password = make_password(p1)
+            user.save()
+            return redirect('login')
+    return render(request, "reset_password.html")
+
+# def forgotpassword(request):
+#     try:
+#         if request.method == 'POST':
+#             username = request.POST.get('username')
+
+#             if not User.objects.filter(username=username).first():
+#                 messages.success(request, 'No User Found with this username')
+#                 return redirect('/forgot-password/')
+#             user_obj = User.objects.get(username=username)
+
+# def forgotpassword(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         user = CustomUser.objects.get(email=email)
+#         token = user.token
+
+# def resetpassword(request, token):
+#     user = get_object_or_404(CustomUser, token=token)
+#     if request.method == 'POST':
+#         new_password = request.POST.get("password")
+#         user.password = make_password(new_password)
+#         print(new_password)
+#         print(user.password)
+#         user.save()
+#         return render(request, 'login')
+#     return render(request, 'reset_password.html')

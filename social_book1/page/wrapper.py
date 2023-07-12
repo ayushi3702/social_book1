@@ -9,5 +9,5 @@ def my_books_wrapper(view_func):
 
             return view_func(request, *args, **kwargs)
         else:
-            return redirect('upload_file')
+            return redirect('upload_book')
     return wrapper
